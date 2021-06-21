@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styling.css">
+    <title>Document</title>
+</head>
+<body>
+
+	
+	<div class="row">
+      	<input id = "in1" class="row-item" type="text" onkeyup="onTheFly()" />
+	<button id="btn1" onclick="run()">Submit</button>
+		
+	<pre><div id="op1" class="output1">Type a linux command </div></pre>
+	
+	
+
+
+       <input id="in2" class="row-item" type="text" onkeyup = "onTheFly()">
+	<button id = "btn2" onclick="run()">Submit</button>	
+	
+	<pre><div id="op2" class="output2">Type a linux command </div></pre>
+	
+	</div>
+
+
+
+<script>
+
+var inp = document.getElementById("in1");
+inp.addEventListener('keyup', function(event){
+if(event.keyCode == 13){
+	
+	document.getElementById("btn1").click();
+}
+});
+
+var inp2 = document.getElementById("in2");
+inp2.addEventListener('keyup', function(event){
+if(event.keyCode == 13){
+	
+	document.getElementById("btn2").click();
+}
+});
+
+
+</script>
+        
+
+
+
+    
+
+
+
+    
+<script>
+function run(){
+	var xhr = new XMLHttpRequest();
+	var i = document.getElementById("in1").value;
+	xhr.open("GET", "http://192.168.0.187/cgi-bin/eval.py?x=" + i,true);
+	xhr.send();
+
+	var xhr1 = new XMLHttpRequest();
+	var j = document.getElementById("in2").value;
+	xhr1.open("GET", "http://192.168.0.187/cgi-bin/eval.py?x=" + j,true);
+	xhr1.send();
+
+
+xhr.onload = function displaying(){
+	var output = xhr.responseText;
+	document.getElementById("op1").innerHTML  = output;	
+} 
+xhr1.onload = function display(){
+	var next_output = xhr1.responseText;
+	document.getElementById("op2").innerHTML  = next_output;	
+} 
+}
+
+
+function onTheFly(){
+	var i = document.getElementById("in1");
+	var j = document.getElementById("in2");
+	var x = document.getElementById("op1");
+	var y = document.getElementById("op2");
+	
+	x.innerHTML = i.value;
+	y.innerHTML = j.value;
+}
+</script>
+
+</body>
+</html>
